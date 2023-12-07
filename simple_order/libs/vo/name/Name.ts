@@ -1,4 +1,7 @@
+import { Column } from 'typeorm';
+
 export class Name {
+    @Column()
     name: string;
 
     public static from(name: string): Name {

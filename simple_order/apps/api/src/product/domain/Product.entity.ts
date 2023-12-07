@@ -7,10 +7,10 @@ export class Product extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column(() => Name)
+    @Column(() => Name, { prefix: false })
     name: Name;
 
-    @Column(() => Price)
+    @Column(() => Price, { prefix: false })
     price: Price;
 
     public static of(name: string, price: number): Product {
