@@ -3,9 +3,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from '../../../../../libs/config/TypeORM.config';
 import { Product } from './Product.entity';
-import { DataSource } from 'typeorm';
+import { TestUtil } from '../../../../../libs/test-util/TestUtil';
+import * as console from 'console';
 
 describe('프로덕트 리포지토리 테스트', () => {
+    const testUtil: TestUtil = new TestUtil(typeORMConfig);
     let repository: ProductRepository;
 
     beforeEach(async () => {
@@ -16,23 +18,12 @@ describe('프로덕트 리포지토리 테스트', () => {
             ],
             providers: [ProductRepository],
         }).compile();
-        console.log(typeORMConfig.entities[0]);
         repository = module.get<ProductRepository>(ProductRepository);
     });
 
-    // afterEach(() => {
-    //     const dataSource = new DataSource({
-    //         type: 'postgres',
-    //         host: 'localhost',
-    //         port: 15432,
-    //         username: 'postgres',
-    //         password: 'qwer1234',
-    //         database: 'test',
-    //     });
-    //
-    //     const repo = dataSource.getRepository(Product);
-    //     repo.clear();
-    // });
+    afterEach(async () => {
+        await testUtil.removeAll();
+    });
 
     it('should be defined', () => {
         expect(repository).toBeDefined();
@@ -47,7 +38,7 @@ describe('프로덕트 리포지토리 테스트', () => {
 
             // when
             const savedProduct = await repository.save(product);
-
+            console.log(product.id);
             // then
             expect(savedProduct.getName()).toEqual(name);
             expect(savedProduct.getPrice()).toEqual(price);
