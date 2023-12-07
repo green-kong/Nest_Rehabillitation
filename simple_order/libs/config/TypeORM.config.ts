@@ -10,4 +10,5 @@ export const typeORMConfig: DataSourceOptions = {
     database: 'test',
     entities: [path.join(__dirname, '../../apps/api/src/**/*.entity.{js,ts}')],
     synchronize: true,
+    logging: process.env.NODE_ENV === 'test',
 };

@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { typeORMConfig } from '../config/TypeORM.config';
 
-export class TestUtil {
+class TestUtil {
     private readonly testUtil: TestUtil;
     private readonly datasource: DataSource;
     private isInitialized: boolean = false;
@@ -25,3 +26,10 @@ export class TestUtil {
         await this.datasource.dropDatabase();
     }
 }
+
+export const afterEachCleanupDB = async () => {
+    const testUtil: TestUtil = new TestUtil(typeORMConfig);
+    afterEach(async () => {
+        await testUtil.removeAll();
+    });
+};
