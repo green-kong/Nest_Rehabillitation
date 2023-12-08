@@ -1,15 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { ApiModule } from '../../src/api.module';
-import { ProductCreateRequest } from '../../src/product/controller/dto/productCreateRequest';
-import { ProductRepository } from '../../src/product/domain/Product.repository';
-import { Product } from '../../src/product/domain/Product.entity';
-import { afterEachCleanupDB } from '@app/test-util/TestUtil';
+import { afterEachCleanupDB } from '@libs/test-util';
+import { createProduct } from './acceptanceCollection';
 
 describe('ApiController (e2e)', () => {
     let app: INestApplication;
-    let productRepo: ProductRepository;
 
     afterEachCleanupDB();
 
@@ -20,29 +17,26 @@ describe('ApiController (e2e)', () => {
 
         app = moduleFixture.createNestApplication();
         await app.init();
-
-        productRepo = app.get<ProductRepository>(ProductRepository);
     });
 
     it('/product (POST)', () => {
-        // given
-        const productCreateRequest = ProductCreateRequest.of('떡볶이', 2000);
-
-        // when & then
-        return request(app.getHttpServer())
-            .post('/product')
-            .send(productCreateRequest)
+        return createProduct(app, '떡볶이', 2000)
             .expect(201)
             .expect('Location', '/product/1');
     });
 
     it('/product/:id (GET)', async () => {
         // given
-        const product = await productRepo.save(Product.of('순대', 2000));
+        let productId: number;
+        await createProduct(app, '순대', 3000) //
+            .expect((res) => {
+                const stringId = res.header.location.split('/');
+                productId = +stringId[2];
+            });
 
         // when & then
         return request(app.getHttpServer())
-            .get(`/product/${product.id}`)
+            .get(`/product/${productId}`)
             .send()
             .expect(200);
     });
