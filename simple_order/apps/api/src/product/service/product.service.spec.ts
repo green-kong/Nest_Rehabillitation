@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductService } from './product.service';
 import { ProductRepository } from '../domain/Product.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMConfig } from '@app/database/TypeORM.config';
 import { Product } from '../domain/Product.entity';
-import { afterEachCleanupDB } from '@app/test-util/TestUtil';
 import { ProductCreateRequest } from '../controller/dto/productCreateRequest';
+import { afterEachCleanupDB } from '@libs/test-util';
+import { typeORMConfig } from '@libs/database';
 
 describe('ProductService', () => {
     let service: ProductService;

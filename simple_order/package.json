@@ -74,9 +74,9 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^libㄴ/entity(|/.*)$": "<rootDir>/libs/entity/src/$1",
-      "^@app/test-util(|/.*)$": "<rootDir>/libs/test-util/src/$1",
-      "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1"
+      "^@libs/entity(|/.*)$": "<rootDir>/libs/entity/src/$1",
+      "^@libs/test-util(|/.*)$": "<rootDir>/libs/test-util/src/$1",
+      "^@libs/database(|/.*)$": "<rootDir>/libs/database/src/$1"
     }
   }
 }

@@ -17,23 +17,24 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
     "paths": {
-      "libs/entity": [
+      "@libs/entity": [
         "libs/entity/src"
       ],
-      "libs/entity/*": [
+      "@libs/entity/*": [
         "libs/entity/src/*"
       ],
-      "@app/test-util": [
+      "@libs/test-util": [
         "libs/test-util/src"
       ],
-      "@app/test-util/*": [
+      "@libs/test-util/*": [
         "libs/test-util/src/*"
       ],
-      "@app/database": [
+      "@libs/database": [
         "libs/database/src"
       ],
-      "@app/database/*": [
+      "@libs/database/*": [
         "libs/database/src/*"
       ]
     }

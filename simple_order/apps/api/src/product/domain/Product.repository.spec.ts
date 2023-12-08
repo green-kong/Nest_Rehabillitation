@@ -1,9 +1,9 @@
 import { ProductRepository } from './Product.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMConfig } from '@app/database/TypeORM.config';
 import { Product } from './Product.entity';
-import { afterEachCleanupDB } from '@app/test-util/TestUtil';
+import { afterEachCleanupDB } from '@libs/test-util';
+import { typeORMConfig } from '@libs/database';
 
 describe('프로덕트 리포지토리 테스트', () => {
     let repository: ProductRepository;
