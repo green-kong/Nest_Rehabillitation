@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { typeORMConfig } from '../config/TypeORM.config';
+import { typeORMConfig } from '@app/database/TypeORM.config';
 
 class TestUtil {
     private readonly testUtil: TestUtil;

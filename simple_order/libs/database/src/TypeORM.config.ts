@@ -1,5 +1,5 @@
-import * as path from 'path';
 import { DataSourceOptions } from 'typeorm';
+import { Product } from '../../../apps/api/src/product/domain/Product.entity';
 
 export const typeORMConfig: DataSourceOptions = {
     type: 'postgres',
@@ -8,7 +8,7 @@ export const typeORMConfig: DataSourceOptions = {
     username: 'postgres',
     password: 'qwer1234',
     database: 'test',
-    entities: [path.join(__dirname, '../../apps/api/src/**/*.entity.{js,ts}')],
+    entities: [Product],
     synchronize: true,
     logging: process.env.NODE_ENV === 'test',
 };

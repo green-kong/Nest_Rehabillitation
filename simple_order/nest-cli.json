@@ -27,6 +27,24 @@
       "compilerOptions": {
         "tsConfigPath": "libs/entity/tsconfig.lib.json"
       }
+    },
+    "test-util": {
+      "type": "library",
+      "root": "libs/test-util",
+      "entryFile": "index",
+      "sourceRoot": "libs/test-util/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/test-util/tsconfig.lib.json"
+      }
+    },
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
     }
   }
 }

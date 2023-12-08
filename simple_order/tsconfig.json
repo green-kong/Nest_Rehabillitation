@@ -18,11 +18,23 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "libㄴ/entity": [
+      "libs/entity": [
         "libs/entity/src"
       ],
-      "libㄴ/entity/*": [
+      "libs/entity/*": [
         "libs/entity/src/*"
+      ],
+      "@app/test-util": [
+        "libs/test-util/src"
+      ],
+      "@app/test-util/*": [
+        "libs/test-util/src/*"
+      ],
+      "@app/database": [
+        "libs/database/src"
+      ],
+      "@app/database/*": [
+        "libs/database/src/*"
       ]
     }
   }

@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Name } from '../../../../../libs/vo/name/Name';
-import { Price } from '../../../../../libs/vo/price/Price';
+import { Name } from 'libs/entity/vo/name/Name';
+import { Price } from 'libs/entity/vo/price/Price';
 
 @Entity()
 export class Product extends BaseEntity {
