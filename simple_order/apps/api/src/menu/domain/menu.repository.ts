@@ -10,4 +10,8 @@ export class MenuRepository {
     public async save(menu: Menu): Promise<Menu> {
         return this.menus.save(menu);
     }
+
+    public async findMenuById(id: number): Promise<Menu> {
+        return this.menus.findOneBy({ id });
+    }
 }

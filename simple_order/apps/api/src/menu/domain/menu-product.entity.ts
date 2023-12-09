@@ -13,7 +13,11 @@ export class MenuProduct {
     @Column(() => Quantity, { prefix: false })
     quantity: Quantity;
 
-    @ManyToOne(() => Menu, (menu) => menu.menuProducts)
+    @ManyToOne(
+        () => Menu, //
+        (menu) => menu.menuProducts,
+        { orphanedRowAction: 'delete' },
+    )
     menu: Menu;
 
     public static of(productId: number, quantity: number): MenuProduct {

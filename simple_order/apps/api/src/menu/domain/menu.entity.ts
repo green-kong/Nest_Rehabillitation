@@ -22,10 +22,14 @@ export class Menu extends BaseEntity {
     @Column()
     menuGroupId: number;
 
-    @OneToMany(() => MenuProduct, (menuProduct) => menuProduct.menu, {
-        cascade: ['insert', 'update'],
-        orphanedRowAction: 'delete',
-    })
+    @OneToMany(
+        () => MenuProduct, //
+        (menuProduct) => menuProduct.menu,
+        {
+            cascade: ['insert', 'update'],
+            eager: true,
+        },
+    )
     menuProducts: MenuProduct[];
 
     public static of(name: string, price: number, menuGroupId: number): Menu {
