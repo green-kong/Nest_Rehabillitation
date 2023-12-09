@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Name } from '@libs/entity';
 
 @Entity()
-export class MenuGroup {
+export class MenuGroup extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

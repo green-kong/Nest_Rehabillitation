@@ -1,5 +1,6 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Quantity } from '@libs/entity/vo/Quantity';
+import { Menu } from './menu.entity';
 
 export class MenuProduct {
     @PrimaryGeneratedColumn()
@@ -10,6 +11,9 @@ export class MenuProduct {
 
     @Column()
     quantity: Quantity;
+
+    @ManyToOne(() => Menu, (menu) => menu.menuProducts)
+    menu: Menu;
 
     public static of(productId: number, quantity: number): MenuProduct {
         const menuProduct = new MenuProduct();
