@@ -1,7 +1,14 @@
-import { BaseEntity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Name, Price } from '@libs/entity';
 import { MenuProduct } from './menu-product.entity';
 
+@Entity()
 export class Menu extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
