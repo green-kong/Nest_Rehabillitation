@@ -28,7 +28,7 @@ describe('menu 테스트', () => {
         );
 
         test.each(['', null, undefined])(
-            '\'%s\'을 이름으로 menu를 생성하면 예외가 발생한다.',
+            "'%s'을 이름으로 menu를 생성하면 예외가 발생한다.",
             (name: string) => {
                 expect(() => {
                     Menu.of(name, 3000, 3);
@@ -58,7 +58,7 @@ describe('menu 테스트', () => {
             const 탕수육 = MenuProduct.of(2, 1);
 
             // when
-            menu.addAllMenuProducts([짜장, 탕수육])
+            menu.addAllMenuProducts([짜장, 탕수육]);
 
             // then
             expect(menu.menuProducts.length).toEqual(2);
@@ -75,7 +75,7 @@ describe('menu 테스트', () => {
             const 탕수육 = MenuProduct.of(2, 1);
             짜장.id = 1;
             탕수육.id = 2;
-            menu.addAllMenuProducts([짜장, 탕수육])
+            menu.addAllMenuProducts([짜장, 탕수육]);
 
             // when
             menu.removeMenuProduct(짜장.id);

@@ -1,7 +1,8 @@
-import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Quantity } from '@libs/entity/vo/Quantity';
 import { Menu } from './menu.entity';
 
+@Entity()
 export class MenuProduct {
     @PrimaryGeneratedColumn()
     id: number;
@@ -9,7 +10,7 @@ export class MenuProduct {
     @Column()
     productId: number;
 
-    @Column()
+    @Column(() => Quantity, { prefix: false })
     quantity: Quantity;
 
     @ManyToOne(() => Menu, (menu) => menu.menuProducts)
