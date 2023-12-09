@@ -1,5 +1,6 @@
 import { DataSourceOptions } from 'typeorm';
 import * as path from 'path';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export const typeORMConfig: DataSourceOptions = {
     type: 'postgres',
@@ -13,4 +14,5 @@ export const typeORMConfig: DataSourceOptions = {
     ],
     synchronize: true,
     logging: process.env.NODE_ENV === 'test',
+    namingStrategy: new SnakeNamingStrategy(),
 };
