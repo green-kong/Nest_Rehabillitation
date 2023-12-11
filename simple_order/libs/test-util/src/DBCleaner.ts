@@ -1,8 +1,8 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { typeORMConfig } from '@libs/database';
 
-class TestUtil {
-    private readonly testUtil: TestUtil;
+class DBCleaner {
+    private readonly testUtil: DBCleaner;
     private readonly datasource: DataSource;
     private isInitialized: boolean = false;
 
@@ -28,7 +28,7 @@ class TestUtil {
 }
 
 export const afterEachCleanupDB = async () => {
-    const testUtil: TestUtil = new TestUtil(typeORMConfig);
+    const testUtil: DBCleaner = new DBCleaner(typeORMConfig);
     afterEach(async () => {
         await testUtil.removeAll();
     });
