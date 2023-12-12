@@ -2,13 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { ApiModule } from '../../src/api.module';
-import { afterEachCleanupDB } from '@libs/test-util';
+import { testCleanupDB } from '@libs/test-util';
 import { createMenuGroup } from './acceptanceCollection';
 
 describe('MenuGroup E2E 테스트', () => {
     let app: INestApplication;
 
-    afterEachCleanupDB();
+    afterEach(async () => {
+        await testCleanupDB(app);
+    });
+    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({

@@ -2,13 +2,20 @@ import { ProductRepository } from './Product.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './Product.entity';
-import { afterEachCleanupDB } from '@libs/test-util';
+import { afterEachCleanupDB, testCleanupDB } from '@libs/test-util';
 import { typeORMConfig } from '@libs/database';
+import { INestApplication } from '@nestjs/common';
 
 describe('프로덕트 리포지토리 테스트', () => {
     let repository: ProductRepository;
 
-    afterEachCleanupDB();
+    let app: INestApplication;
+
+    afterEach(async () => {
+        await testCleanupDB(app);
+    });
+
+    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -19,6 +26,7 @@ describe('프로덕트 리포지토리 테스트', () => {
             providers: [ProductRepository],
         }).compile();
         repository = module.get<ProductRepository>(ProductRepository);
+        app = module.createNestApplication();
     });
 
     it('should be defined', () => {

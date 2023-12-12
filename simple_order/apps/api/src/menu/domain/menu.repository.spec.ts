@@ -4,12 +4,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from '@libs/database';
 import { Menu } from './menu.entity';
 import { MenuProduct } from './menu-product.entity';
-import { afterEachCleanupDB } from '@libs/test-util';
+import { afterEachCleanupDB, testCleanupDB } from '@libs/test-util';
+import { INestApplication } from '@nestjs/common';
 
 describe('menuRepository 테스트', () => {
     let repository: MenuRepository;
+    let app: INestApplication;
 
-    afterEachCleanupDB();
+    afterEach(async () => {
+        await testCleanupDB(app);
+    });
+    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -21,6 +26,7 @@ describe('menuRepository 테스트', () => {
         }).compile();
 
         repository = module.get<MenuRepository>(MenuRepository);
+        app = module.createNestApplication();
     });
 
     it('should be defined', () => {

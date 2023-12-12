@@ -4,14 +4,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from '@libs/database';
 import { Menu } from '../domain/menu.entity';
 import { MenuRepository } from '../domain/menu.repository';
-import { afterEachCleanupDB, Fixture } from '@libs/test-util';
+import { afterEachCleanupDB, Fixture, testCleanupDB } from '@libs/test-util';
 import { MenuResponse } from '../controller/dto/menuResponse';
+import { INestApplication } from '@nestjs/common';
 
 describe('MenuService', () => {
     let service: MenuService;
     let repository: MenuRepository;
+    let app: INestApplication;
 
-    afterEachCleanupDB();
+    afterEach(async () => {
+        await testCleanupDB(app);
+    });
+    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -22,6 +27,7 @@ describe('MenuService', () => {
             providers: [MenuService, MenuRepository],
         }).compile();
 
+        app = module.createNestApplication();
         service = module.get<MenuService>(MenuService);
         repository = module.get<MenuRepository>(MenuRepository);
     });
