@@ -1,17 +1,17 @@
 import { MenuGroupRepository } from './menu-group.repository';
-import { afterEachCleanupDB, testCleanupDB } from '@libs/test-util';
+import { cleanupDB } from '@libs/test-util';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from '@libs/database';
 import { MenuGroup } from './menu-group.entity';
-import { INestApplication } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 
 describe('menuGroupRepository 테스트', () => {
     let menuGroupRepository: MenuGroupRepository;
-    let app: INestApplication;
+    let dataSource: DataSource;
 
     afterEach(async () => {
-        await testCleanupDB(app);
+        await cleanupDB(dataSource);
     });
 
     beforeEach(async () => {
@@ -25,7 +25,7 @@ describe('menuGroupRepository 테스트', () => {
 
         menuGroupRepository =
             module.get<MenuGroupRepository>(MenuGroupRepository);
-        app = module.createNestApplication();
+        dataSource = module.get<DataSource>(DataSource);
     });
 
     it('shoud be defined', () => {

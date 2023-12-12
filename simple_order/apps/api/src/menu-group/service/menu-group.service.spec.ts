@@ -3,18 +3,18 @@ import { MenuGroupService } from './menu-group.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MenuGroupRepository } from '../domain/menu-group.repository';
 import { typeORMConfig } from '@libs/database';
-import { afterEachCleanupDB, testCleanupDB } from '@libs/test-util';
+import { cleanupDB } from '@libs/test-util';
 import { MenuGroup } from '../domain/menu-group.entity';
 import { MenuGroupCreateRequest } from '../controller/dto/menu-group-create.request';
-import { INestApplication } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 
 describe('MenuGroupService', () => {
     let service: MenuGroupService;
     let menuGroupRepository: MenuGroupRepository;
-    let app: INestApplication;
+    let dataSource: DataSource;
 
     afterEach(async () => {
-        await testCleanupDB(app);
+        await cleanupDB(dataSource);
     });
     // afterEachCleanupDB();
 
@@ -30,7 +30,7 @@ describe('MenuGroupService', () => {
         service = module.get<MenuGroupService>(MenuGroupService);
         menuGroupRepository =
             module.get<MenuGroupRepository>(MenuGroupRepository);
-        app = module.createNestApplication();
+        dataSource = module.get<DataSource>(DataSource);
     });
 
     it('should be defined', () => {

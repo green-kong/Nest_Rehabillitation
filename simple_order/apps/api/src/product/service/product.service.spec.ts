@@ -4,19 +4,18 @@ import { ProductRepository } from '../domain/Product.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from '../domain/Product.entity';
 import { ProductCreateRequest } from '../controller/dto/productCreateRequest';
-import { afterEachCleanupDB, testCleanupDB } from '@libs/test-util';
+import { cleanupDB } from '@libs/test-util';
 import { typeORMConfig } from '@libs/database';
-import { INestApplication } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 
 describe('ProductService', () => {
     let service: ProductService;
     let repository: ProductRepository;
-    let app: INestApplication;
+    let dataSource: DataSource;
 
     afterEach(async () => {
-        await testCleanupDB(app);
+        await cleanupDB(dataSource);
     });
-    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -29,7 +28,7 @@ describe('ProductService', () => {
 
         service = module.get<ProductService>(ProductService);
         repository = module.get<ProductRepository>(ProductRepository);
-        app = module.createNestApplication();
+        dataSource = module.get<DataSource>(DataSource);
     });
 
     it('should be defined', () => {

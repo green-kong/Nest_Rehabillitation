@@ -2,14 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { ApiModule } from '../../src/api.module';
-import { testCleanupDB } from '@libs/test-util';
+import { cleanupDB } from '@libs/test-util';
 import { createMenuGroup } from './acceptanceCollection';
+import { DataSource } from 'typeorm';
 
 describe('MenuGroup E2E 테스트', () => {
+    let dataSource: DataSource;
     let app: INestApplication;
 
     afterEach(async () => {
-        await testCleanupDB(app);
+        await cleanupDB(dataSource);
     });
     // afterEachCleanupDB();
 
@@ -19,6 +21,8 @@ describe('MenuGroup E2E 테스트', () => {
         }).compile();
 
         app = moduleFixture.createNestApplication();
+        dataSource = moduleFixture.get<DataSource>(DataSource);
+
         await app.init();
     });
 
