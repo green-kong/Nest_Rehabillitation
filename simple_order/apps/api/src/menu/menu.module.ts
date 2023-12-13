@@ -8,6 +8,7 @@ import { MenuGroup } from '../menu-group/domain/menu-group.entity';
 import { Product } from '../product/domain/Product.entity';
 import { MenuGroupRepository } from '../menu-group/domain/menu-group.repository';
 import { ProductRepository } from '../product/domain/Product.repository';
+import { MenuController } from './controller/menu.controller';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Menu, MenuGroup, Product])],
@@ -18,5 +19,6 @@ import { ProductRepository } from '../product/domain/Product.repository';
         MenuService,
         { provide: 'menuValidator', useClass: DefaultMenuValidator },
     ],
+    controllers: [MenuController],
 })
 export class MenuModule {}

@@ -49,7 +49,7 @@ describe('MenuService', () => {
         );
 
         // when
-        const savedId: number = await service.save(
+        const savedId: number = await service.saveMenu(
             menuCreateRequestWithThreeProducts,
         );
         const menu = await repository.findMenuById(savedId);
@@ -70,7 +70,7 @@ describe('MenuService', () => {
             menuName,
             menuPrice,
         );
-        const savedId: number = await service.save(
+        const savedId: number = await service.saveMenu(
             menuCreateRequestWithThreeProducts,
         );
 

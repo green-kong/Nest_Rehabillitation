@@ -1,10 +1,12 @@
 import { MenuProductRequest } from './menuProductRequest';
 import { Menu } from '../../domain/menu.entity';
+import { Type } from 'class-transformer';
 
 export class MenuCreateRequest {
     name: string;
     price: number;
     menuGroupId: number;
+    @Type(() => MenuProductRequest)
     menuProductRequests: MenuProductRequest[];
 
     public static of(

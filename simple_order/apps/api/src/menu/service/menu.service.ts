@@ -11,7 +11,7 @@ export class MenuService {
         private readonly menuRepository: MenuRepository,
     ) {}
 
-    async save(menuCreateRequest: MenuCreateRequest): Promise<number> {
+    async saveMenu(menuCreateRequest: MenuCreateRequest): Promise<number> {
         const menu = menuCreateRequest.toMenu();
         await menu.validate(this.menuValidator);
         const savedMenu = await this.menuRepository.save(menu);
