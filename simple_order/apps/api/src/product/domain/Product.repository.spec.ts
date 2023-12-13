@@ -61,5 +61,25 @@ describe('프로덕트 리포지토리 테스트', () => {
             expect(foundProduct.getName()).toEqual(name);
             expect(foundProduct.getPrice()).toEqual(price);
         });
+
+        it('저장한 product를 한번에 여러개 조회한다.', async () => {
+            // given
+            const 떡볶이 = Product.of('떡볶이', 3500);
+            const 순대 = Product.of('순대', 3000);
+            const 튀김 = Product.of('튀김', 3000);
+            const savedProduct1 = await repository.save(떡볶이);
+            const savedProduct2 = await repository.save(순대);
+            const savedProduct3 = await repository.save(튀김);
+
+            // when
+            const products = await repository.findByIds([
+                savedProduct1.id,
+                savedProduct2.id,
+                savedProduct3.id,
+            ]);
+
+            // then
+            expect(products.length).toEqual(3);
+        });
     });
 });

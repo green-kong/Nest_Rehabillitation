@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Name, Price } from '@libs/entity';
 import { MenuProduct } from './menu-product.entity';
+import { MenuValidator } from '../service/menu.validator';
 
 @Entity()
 export class Menu extends BaseEntity {
@@ -54,6 +55,10 @@ export class Menu extends BaseEntity {
     public removeMenuProduct(menuProductId: number): void {
         this.menuProducts = this.menuProducts //
             .filter((menuProduct) => menuProduct.id !== menuProductId);
+    }
+
+    public async validate(menuValidator: MenuValidator): Promise<void> {
+        await menuValidator.validate(this);
     }
 
     public getName() {

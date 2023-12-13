@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from '@libs/database';
 import { Menu } from '../domain/menu.entity';
 import { MenuRepository } from '../domain/menu.repository';
-import { cleanupDB, Fixture } from '@libs/test-util';
+import { cleanupDB, Fixture, StubMenuValidator } from '@libs/test-util';
 import { MenuResponse } from '../controller/dto/menuResponse';
 import { DataSource } from 'typeorm';
 
@@ -23,7 +23,11 @@ describe('MenuService', () => {
                 TypeOrmModule.forRoot(typeORMConfig),
                 TypeOrmModule.forFeature([Menu]),
             ],
-            providers: [MenuService, MenuRepository],
+            providers: [
+                MenuService,
+                MenuRepository,
+                { provide: 'menuValidator', useClass: StubMenuValidator },
+            ],
         }).compile();
 
         dataSource = module.get<DataSource>(DataSource);
