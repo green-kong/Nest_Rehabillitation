@@ -16,7 +16,6 @@ describe('MenuGroupService', () => {
     afterEach(async () => {
         await cleanupDB(dataSource);
     });
-    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({

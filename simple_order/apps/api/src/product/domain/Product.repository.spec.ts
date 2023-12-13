@@ -14,8 +14,6 @@ describe('프로덕트 리포지토리 테스트', () => {
         await cleanupDB(dataSource);
     });
 
-    // afterEachCleanupDB();
-
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [

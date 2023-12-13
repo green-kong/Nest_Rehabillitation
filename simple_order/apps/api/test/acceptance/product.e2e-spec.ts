@@ -13,7 +13,6 @@ describe('ApiController (e2e)', () => {
     afterEach(async () => {
         await cleanupDB(dataSource);
     });
-    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({

@@ -13,7 +13,6 @@ describe('MenuGroup E2E 테스트', () => {
     afterEach(async () => {
         await cleanupDB(dataSource);
     });
-    // afterEachCleanupDB();
 
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
