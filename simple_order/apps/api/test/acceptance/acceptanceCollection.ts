@@ -4,6 +4,7 @@ import { INestApplication } from '@nestjs/common';
 import { ProductCreateRequest } from '../../src/product/controller/dto/productCreateRequest';
 import { MenuCreateRequest } from '../../src/menu/controller/dto/menuCreateRequest';
 import { MenuProductRequest } from '../../src/menu/controller/dto/menuProductRequest';
+import { TableCreateRequest } from '../../src/table/controller/dto/tableCreateRequest';
 
 export const createMenuGroup = (app: INestApplication, productName: string) => {
     const menuGroupCreateRequest = MenuGroupCreateRequest.from(productName);
@@ -43,6 +44,13 @@ export const createMenu = (
     return request(app.getHttpServer()) //
         .post('/menu')
         .send(menuCreateRequest);
+};
+
+export const createTable = (app: INestApplication, seats: number) => {
+    const tableCreateRequest = TableCreateRequest.from(seats);
+    return request(app.getHttpServer()) //
+        .post('/table')
+        .send(tableCreateRequest);
 };
 
 export interface MenuProductParams {
