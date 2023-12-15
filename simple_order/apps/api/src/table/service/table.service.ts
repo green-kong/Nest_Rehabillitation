@@ -6,11 +6,14 @@ import { TableResponse } from '../controller/dto/tableResponse';
 import { OnEvent } from '@nestjs/event-emitter';
 
 import { GroupingCreateEvent } from '../../table-group/service/event/grouping-create.event';
-import * as console from 'console';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class TableService {
-    constructor(private readonly tableRepository: TableRepository) {}
+    constructor(
+        private readonly tableRepository: TableRepository,
+        private readonly dataSource: DataSource,
+    ) {}
 
     public async saveTable(tableCreateRequest: TableCreateRequest) {
         const table: OrderTable = tableCreateRequest.toTable();
@@ -24,17 +27,35 @@ export class TableService {
     }
 
     @OnEvent('grouping.create')
-    public async handleGroupingEvent(event: GroupingCreateEvent) {
-        const { groupTableId, tableIds } = event;
-        const orderTables = await this.tableRepository.findTableByIds(tableIds);
+    public async handleGroupingEvent(
+        event: GroupingCreateEvent,
+    ): Promise<boolean> {
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            const { groupTableId, tableIds } = event;
+            const orderTables =
+                await this.tableRepository.findTableByIds(tableIds);
 
-        if (orderTables.length !== tableIds.length) {
-            throw new Error('123');
+            if (orderTables.length !== tableIds.length) {
+                throw new Error(
+                    `존재하지 않는 table이 포함되어 있습니다. tableIds = ${tableIds}`,
+                );
+            }
+
+            for (const orderTable of orderTables) {
+                orderTable.groupBy(groupTableId);
+                await queryRunner.manager.save(orderTable);
+            }
+            await queryRunner.commitTransaction();
+            return true;
+        } catch (error) {
+            console.error(error.message);
+            await queryRunner.rollbackTransaction();
+            return false;
+        } finally {
+            await queryRunner.release();
         }
-
-        orderTables.forEach((orderTable) => {
-            orderTable.groupBy(groupTableId);
-            this.tableRepository.save(orderTable);
-        });
     }
 }

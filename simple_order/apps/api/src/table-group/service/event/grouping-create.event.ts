@@ -2,8 +2,8 @@ export class GroupingCreateEvent {
     groupTableId: number;
     tableIds: number[];
 
-    constructor(id: number, tableIds: number[]) {
-        this.groupTableId = id;
+    constructor(groupTableId: number, tableIds: number[]) {
+        this.groupTableId = groupTableId;
         this.tableIds = tableIds;
     }
 }
