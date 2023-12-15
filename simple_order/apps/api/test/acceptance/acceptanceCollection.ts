@@ -5,6 +5,7 @@ import { ProductCreateRequest } from '../../src/product/controller/dto/productCr
 import { MenuCreateRequest } from '../../src/menu/controller/dto/menuCreateRequest';
 import { MenuProductRequest } from '../../src/menu/controller/dto/menuProductRequest';
 import { TableCreateRequest } from '../../src/table/controller/dto/tableCreateRequest';
+import { TableGroupingRequest } from '../../src/table-group/controller/dto/table-grouping.request';
 
 export const createMenuGroup = (app: INestApplication, productName: string) => {
     const menuGroupCreateRequest = MenuGroupCreateRequest.from(productName);
@@ -51,6 +52,13 @@ export const createTable = (app: INestApplication, seats: number) => {
     return request(app.getHttpServer()) //
         .post('/table')
         .send(tableCreateRequest);
+};
+
+export const createTableGroup = (app: INestApplication, tableIds: number[]) => {
+    const tableGroupingRequest = TableGroupingRequest.from(tableIds);
+    return request(app.getHttpServer()) //
+        .post('/table-group')
+        .send(tableGroupingRequest);
 };
 
 export interface MenuProductParams {

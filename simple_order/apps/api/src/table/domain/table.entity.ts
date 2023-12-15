@@ -12,6 +12,9 @@ export class OrderTable extends BaseEntity {
     @Column()
     empty: boolean;
 
+    @Column({ nullable: true })
+    groupTableId: number;
+
     public static from(seats: number): OrderTable {
         const newSeats = Seats.from(seats);
         const table = new OrderTable();
@@ -32,6 +35,13 @@ export class OrderTable extends BaseEntity {
             throw new Error('이미 비어있는 테이블 입니다.');
         }
         this.empty = true;
+    }
+
+    public groupBy(groupTableId: number): void {
+        if (this.groupTableId) {
+            throw new Error('이미 그룹화 되어있는 테이블 입니다.');
+        }
+        this.groupTableId = groupTableId;
     }
 
     public getSeats() {
